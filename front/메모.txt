@@ -1,0 +1,35 @@
+query는 입력데이터. v-model로 이용.
+v-show : 는 보이고 안보이는 그런겨
+위 두개를 통칭 '양방향 바인딩'
+v-on : 돔에서 일어나능 이벤트를 리슨함(submit,click)
+v-on:submit.prevent="함수이름" 서브밑하는 함수를 프리벤트디폴트(서브밑해도 새로고침안되게)함
+v-if="무언가" 무언가가 참일때 여기 돔 실햄
+v-else 반대
+v-for="item in 무언가" 반복.
+v-bind 어트리뷰트의 값을 바인딩.
+변수 사용은 {{ 변수 }}
+데이터 한개 넘으면 [] 로 만드삼
+v-bind:class='{active: tab === selectedTab}' tab이 seletedTab이라면 class에 active라고 박겠다!
+.stop박으면 이벤트 전파 일어나지않음(이벤트버블링일어나지않음)
+외부에서 받아온 값을 props라고 함.
+$emit(): child -> parent
+v-bind:data="searchResult"원래는 searchResult로 사용했는데 data로 바인딩
+computed 뷰 템플릿 쪽에 변수마냥 쓰는ㄱ
+ipm i -g vue-cli
+vue init webpack-simple
+
+젤큰파일에
+npm install -g vue-cli
+front드가서
+vue init webpack-simple
+npm i
+npm i vue-router
+
+서버라우팅 : 화면 매번 갱신 - 네이버,구글
+브라우져 라우팅 : 기능별 갱신 - 구글메일,트렐로
+
+웹펙에서 entry가 main.js로 되어있으니 entry point가 이거 ㅇㅇ
+
+router-link 네비게이션을 위한, ->히스토리모드.
+
+
