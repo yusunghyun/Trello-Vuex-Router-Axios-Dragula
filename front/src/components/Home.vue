@@ -1,6 +1,5 @@
 <template>
   <div>
-    Home
     <div>
       Board List:
       <div v-if="loading">Loading...</div>

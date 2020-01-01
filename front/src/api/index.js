@@ -9,8 +9,8 @@ const onUnauthorized = () => {
 
 const request = (method, url, data) => {
   return axios({
-    method, 
-    url: DOMAIN + url, 
+    method,
+    url: DOMAIN + url,
     data
   }).then(result => result.data)
     .catch(result => {
