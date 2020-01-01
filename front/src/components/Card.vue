@@ -19,7 +19,7 @@ export default {
   watch:{
     '$route':{//라우트를 감시하다가 변경되면 실행.
       handler:'fetchData',
-      immediate:true //즉시실행 created없어도딤
+      immediate:true //즉시실행이라는 뜻 created없어도딤
     }
   },
   // created(){//뷰가 시작할때 실행.
