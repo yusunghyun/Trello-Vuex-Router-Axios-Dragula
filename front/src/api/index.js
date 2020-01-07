@@ -24,12 +24,15 @@ export const setAuthInHeader = token => {
   axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : null;
 }
 
-const {token} = localStorage
-if (token) setAuthInHeader(token)
+// const {token} = localStorage
+// if (token) setAuthInHeader(token)
 
 export const board = {
   fetch() {
     return request('get', '/boards')
+  },
+  create(title){
+    return request('post','/boards',{title})
   }
 }
 //인증을 위한

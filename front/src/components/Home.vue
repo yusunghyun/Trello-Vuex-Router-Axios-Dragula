@@ -9,28 +9,37 @@
         </router-link>
       </div>
       <div class="board-item board-item-new">
-        <a class="new-board-btn" href="" @click.prevent="addBoard">
+        <a class="new-board-btn" href="" @click.prevent="SET_IS_ADD_BOARD(true)">
           Create new board...
         </a>
       </div>
     </div>
-    <Modal></Modal>
+    <AddBoard v-if='isAddBoard'/>
   </div>
 </template>
 
 <script>
 import {board} from '../api'
-import Modal from './Modal.vue'
-export default {
-  components:{Modal},
+import AddBoard from './AddBoard.vue'
+import {mapState, mapMutations, mapActions} from 'vuex'
 
+export default {
+  components:{
+    AddBoard,
+  },
   data() {
     return {
       loading: false,
-      boards: [],
-      error: ''
+      // boards: [],
+      error: '',
+      // isAddBoard:false,
     }
   },
+  computed:{ //24시간 가동!
+    ...mapState({//맵스테이트는 이스에드보드를 쓸꺼에요 (배열로 해도됨 객체말구)
+      isAddBoard:'isAddBoard',
+      boards: 'boards'
+  })},
   created() {
     this.fetchData()
   },
@@ -40,19 +49,28 @@ export default {
     })
   },
   methods: {
-    fetchData() {
+    ...mapMutations([ 
+      'SET_IS_ADD_BOARD'
+    ]),
+    ...mapActions([
+      'FETCH_BOARDS'
+    ]),
+    fetchData() { //조회,갱신,리프레쉬
       this.loading = true
-      board.fetch()
-        .then(data => {
-          this.boards = data.list
-        })
-        .finally(_=> {
-          this.loading = false
-        })
+      this.FETCH_BOARDS().finally(_=> {
+        this.loading = false
+      })
     },
-    addBoard() {
-      console.log('addBoard()')
-    }
+    // addBoard() {
+    //   // this.isAddBoard = true
+    //   this.$store.commit('SET_IS_ADD_BOARD',true)
+    // },
+    /* onAddBoard(title){
+      //api호출해야댐
+      // board.create(title)
+      //   .then(()=>this.fetchData())
+      this.fetchData()
+    }, */
   }
 }
 </script>

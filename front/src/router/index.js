@@ -5,14 +5,14 @@ import Login from '../components/Login.vue'
 import NotFound from '../components/NotFound.vue'
 import Board from '../components/Board.vue'
 import Card from '../components/Card.vue'
+import store from '../store'
 
 
 Vue.use(VueRouter);
 
 const requireAuth = ( to, from, next ) =>{
-  const isAuth = localStorage.getItem('token')
   const loginPath = `/login?rPath=${encodeURIComponent(to.path)}`
-  isAuth? next() : next(loginPath)
+  store.getters.isAuth ? next() : next(loginPath)
 }
 //  {beforeEnter:requireAuth}   <--이놈이 로그인 이미 했다라는 인증용ㅇㅇ
 
