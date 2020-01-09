@@ -1,17 +1,22 @@
 import * as api from '../api'
 
 const actions = { //행동하는것 + api호출같은 비동기로직.
-  ADD_BOARD(_,{title}){
-    return api.board.create(title)//프라미스리턴하고 미리 만든거래..
+  LOGIN({commit},{email,password}){
+    return api.auth.login(email,password)
+      .then(({accessToken})=>commit('LOGIN',accessToken))
   },
-  FETCH_BOARDS( {commit} ){
+  ADD_BOARD(_,{title}){
+    return api.board.create(title).then(data=>data.item)//프라미스리턴하고 미리 만든거래..
+  },
+  FETCH_BOARDS( {commit} ){//보드목록패치
     return api.board.fetch().then(data=>{
       commit('SET_BOARDS',data.list)
     })
   },
-  LOGIN({commit},{email,password}){
-    return api.auth.login(email,password)
-      .then(({accessToken})=>commit('LOGIN',accessToken))
-  }
+  FETCH_BOARD({commit},{id}){//한개만 패치.
+    return api.board.fetch(id).then(data=>{
+      commit('SET_BOARD',data.item)
+    })
+  },
 }
 export default actions
