@@ -3,7 +3,7 @@ const state = {
   boards: [],//어플내 보드목록 상태
   token:null,
   board:{},
-  
+  card:{},
 }
 
 export default state
