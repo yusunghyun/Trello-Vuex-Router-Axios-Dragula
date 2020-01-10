@@ -50,3 +50,5 @@ state로 등록해놓고 mutations로 구성. mapMutations로 간단사용.
 v-bind:data 랑 :data랑 같나봅
 
 @submit  => submit이 발동하면 실행
+
+api -> action -> mu -> state ->
