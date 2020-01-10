@@ -21,12 +21,16 @@
 <script>
 import {mapState, mapActions} from 'vuex'
 import List from './List.vue'
+import dragula from 'dragula'
+import 'dragula/dist/dragula.css'
+
 export default {
   components: { List },
   data() {
     return {
       bid: 0,
-      loading: false
+      loading: false,
+      dragulaCards:null,
     }
   },
   computed: {
@@ -37,9 +41,43 @@ export default {
   created() {
     this.fetchData()
   },
+  updated(){//자식컴포가 마운트된 시점
+    if(this.dragulaCards) this.dragulaCards.destroy()
+    //daragula(container,option)
+    this.dragulaCards = dragula([
+      ...Array.from(this.$el.querySelectorAll('.card-list'))
+    ]).on('drop',(el,wrapper,target,siblings)=>{
+      const targetCard = {
+        id:el.dataset.cardId * 1,
+        pos: 65535
+      }
+      let prevCard = null
+      let nextCard = null
+      Array.from(wrapper.querySelectorAll('.card-item'))
+        .forEach((el,idx,arr)=>{
+          const cardId = el.dataset.cardId * 1
+          if(cardId == targetCard.id) {
+            prevCard = idx > 0 ? {
+              id: arr[idx -1 ].dataset.cardId * 1,
+              pos: arr[idx -1 ].dataset.cardPos * 1,
+            } : null;
+            nextCard = idx < arr.length -1 ?{
+              id:arr[idx+1].dataset.cardId * 1,
+              pos:arr[idx+1].dataset.cardPos * 1
+            } : null;
+          }
+        })
+      if(!prevCard && nextCard) targetCard.pos = nextCard.pos / 2
+      else if (!nextCard && prevCard) targetCard.pos = prevCard.pos * 2
+      else if (prevCard && nextCard) targetCard.pos = (prevCard.pos + nextCard.pos)/2
+      console.log(targetCard)
+      this.UPDATE_CARD(targetCard)//이게 api 넘기기 간단!
+  })
+  },
   methods: {
     ...mapActions([
-      'FETCH_BOARD'
+      'FETCH_BOARD',
+      'UPDATE_CARD',//이게 api 넘기기 간단!
     ]),
     fetchData() {
       this.loading = true
