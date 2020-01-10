@@ -17,6 +17,10 @@ const actions = { //행동하는것 + api호출같은 비동기로직.
     return api.board.fetch(id).then(data=>{
       commit('SET_BOARD',data.item)
     })
-  },
+  },//아래 함수 첫번째 인자는 컨텍스트
+  ADD_CARD({dispatch,state},{title, listId, pos}){
+    return api.card.create(title,listId,pos)
+      .then(()=>dispatch('FETCH_BOARD',{id:state.board.id}))
+  }
 }
 export default actions

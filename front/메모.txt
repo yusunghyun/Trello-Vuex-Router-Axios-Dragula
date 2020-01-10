@@ -45,3 +45,8 @@ state로 등록해놓고 mutations로 구성. mapMutations로 간단사용.
 일반적일때는 새로운 문장을 추가할 때 아랫줄에 적지만 콜백에서는 .then()하세용
 
 {속성이름} 캐치함수라고 부름
+
+
+v-bind:data 랑 :data랑 같나봅
+
+@submit  => submit이 발동하면 실행
