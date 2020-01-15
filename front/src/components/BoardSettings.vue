@@ -5,21 +5,56 @@
       <a class="header-close-btn" href="" @click.prevent="onClose">&times;</a>
     </div>
     <ul class="menu-list">
-      <li>Menu 1</li>
+      <li><a href="" @click.prevent='onDeleteBoard'>DELETE BOARD</a></li>
+      <li>CHANGE BACKGROUND</li>
+      <div class="color-picker">
+        <a href="" data-value="rgb(0,121,191)" @click.prevent="onChangeTheme"></a>
+        <a href="" data-value="rgb(210,144,52)" @click.prevent="onChangeTheme"></a>
+        <a href="" data-value="rgb(81,152,57)" @click.prevent="onChangeTheme"></a>
+        <a href="" data-value="rgb(176,70,50)" @click.prevent="onChangeTheme"></a>
+      </div>
     </ul>
   </div>
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import {mapMutations,mapActions,mapState} from 'vuex'
 export default {
+  computed: {
+    ...mapState({
+      board:'board',
+    })
+  },
+  mounted() { //$el이 돔이래
+    Array.from(this.$el.querySelectorAll('.color-picker a')).forEach(el=>{
+      el.style.backgroundColor = el.dataset.value //data-value 값
+    })
+  },
   methods: {
     ...mapMutations([
-      'SET_IS_SHOW_BOARD_SETTINGS' //보드셑사이드바가 보여지거나 숨겨지거나.
+      'SET_IS_SHOW_BOARD_SETTINGS', //보드셑사이드바가 보여지거나 숨겨지거나.
+      'SET_THEME',
+    ]),
+    ...mapActions([
+      'DELETE_BOARD',
+      'UPDATE_BOARD',
     ]),
     onClose() {
       this.SET_IS_SHOW_BOARD_SETTINGS(false)
-    }
+    },
+    onDeleteBoard(){
+      if(!window.confirm(`${this.board.title} 보드를 삭제하시겠습니까?`)) return
+      this.DELETE_BOARD({id:this.board.id})
+        .then(()=>this.SET_IS_SHOW_BOARD_SETTINGS(false))
+        .then(()=>this.$router.push('/'))
+    },
+    onChangeTheme(el){
+      const id = this.board.id
+      const bgColor = el.target.dataset.value
+      this.UPDATE_BOARD({id,bgColor})
+        .then(()=>this.SET_THEME(bgColor)) //일케하면 업뎉보드 완료했을 때 작동됭.
+      
+    },
   }
 }
 </script>

@@ -18,6 +18,13 @@ const actions = { //행동하는것 + api호출같은 비동기로직.
       commit('SET_BOARD',data.item)
     })
   },//아래 함수 첫번째 인자는 컨텍스트
+  DELETE_BOARD(_,{id}){
+    return api.board.destroy(id)
+  },
+  UPDATE_BOARD({dispatch,state},{id,title,bgColor}){ //첫번째 인자는 디스패치와 컨텍스트르 ㄹ쓰기위해 한거임.
+    return api.board.update(id,{title,bgColor})
+      .then(()=>dispatch('FETCH_BOARD',{id:state.board.id}))
+  },
   ADD_CARD({dispatch,state},{title, listId, pos}){
     return api.card.create(title,listId,pos)
       .then(()=>dispatch('FETCH_BOARD',{id:state.board.id}))

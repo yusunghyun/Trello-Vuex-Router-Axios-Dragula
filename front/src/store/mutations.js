@@ -24,7 +24,7 @@ const mutations = { //변화하는것//state국룰
   SET_CARD(state,card){
     state.card=card
   },
-  SET_THEME (state,color){
+  SET_THEME (state,color){ //바디,navbar 배경을 바꿔주는 함수
     state.bodyColor = color || '#ffffff',
     state.navbarColor = color ? 'rgba(0,0,0,.15)' : '#026aa7'
   },

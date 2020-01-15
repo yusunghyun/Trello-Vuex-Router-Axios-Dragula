@@ -33,7 +33,13 @@ export const board = {
   },
   create(title){
     return request('post','/boards',{title})
-  }
+  },
+  destroy(id){
+    return request('delete',`/boards/${id}`)
+  },
+  update(id,payload){
+    return request('put',`/boards/${id}`,payload)
+  },
 }
 //인증을 위한
 export const auth = {
