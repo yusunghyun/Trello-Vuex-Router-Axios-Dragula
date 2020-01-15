@@ -1,7 +1,9 @@
 <template>
   <div class="list">
     <div class="list-header">
-      <div class="list-header-title">{{data.title}}</div>
+      <input v-if="isEditTitle" class="form-control input-title" type="text"
+        ref="inputTitle2" v-model="inputTitle" @blur="onBlurTitle" @keyup.enter="onSubmitTitle">
+      <div v-else class="list-header-title" @click.prevent="onClickTitle">{{data.title}}</div>
     </div>
     <div class="card-list">
       <card-item v-for="card in data.cards" :key="card.id" :data="card"/>
@@ -18,6 +20,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import AddCard from './AddCard.vue'
 import CardItem from './CardItem.vue'
 export default {
@@ -25,9 +28,38 @@ export default {
   props: ['data'],
   data() {
     return {
-      isAddCard: false
+      isAddCard: false,
+      isEditTitle: false,
+      inputTitle:'',
     }
-  }
+  },
+  created() { //이름 복원
+    this.inputTitle=this.data.title
+  },
+  methods: {
+    ...mapActions([
+      'UPDATE_LIST'
+    ]),
+    onClickTitle(){
+      this.isEditTitle = true
+      this.$nextTick(()=> this.$refs.inputTitle2.focus()) //다음싸이클에 돌자
+    },
+    onBlurTitle(){
+      this.isEditTitle = false
+    },
+    onSubmitTitle(){
+      this.onBlurTitle()
+
+      this.inputTitle = this.inputTitle.trim()
+      if(!this.inputTitle) return
+
+      const id=this.data.id
+      const title = this.inputTitle
+      if(title==this.data.title) return
+
+      this.UPDATE_LIST({id,title})
+    },
+  },
 }
 </script>
 

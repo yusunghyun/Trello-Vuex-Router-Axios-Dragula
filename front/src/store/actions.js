@@ -29,6 +29,10 @@ const actions = { //행동하는것 + api호출같은 비동기로직.
     return api.list.create({title,boardId,pos})
       .then(()=>dispatch('FETCH_BOARD',{id:state.board.id}))
   },
+  UPDATE_LIST({dispatch,state},{id,pos,title}){
+    return api.list.update(id,{pos,title})
+    .then(()=>dispatch('FETCH_BOARD',{id:state.board.id}))
+  },
   ADD_CARD({dispatch,state},{title, listId, pos}){
     return api.card.create(title,listId,pos)
       .then(()=>dispatch('FETCH_BOARD',{id:state.board.id}))
