@@ -25,6 +25,10 @@ const actions = { //행동하는것 + api호출같은 비동기로직.
     return api.board.update(id,{title,bgColor})
       .then(()=>dispatch('FETCH_BOARD',{id:state.board.id}))
   },
+  ADD_LIST({dispatch,state},{title,boardId,pos}){ //ctx안에 dispatch와 state있음
+    return api.list.create({title,boardId,pos})
+      .then(()=>dispatch('FETCH_BOARD',{id:state.board.id}))
+  },
   ADD_CARD({dispatch,state},{title, listId, pos}){
     return api.card.create(title,listId,pos)
       .then(()=>dispatch('FETCH_BOARD',{id:state.board.id}))

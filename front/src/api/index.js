@@ -41,6 +41,11 @@ export const board = {
     return request('put',`/boards/${id}`,payload)
   },
 }
+export const list = {
+  create(payload){
+    return request('post','/lists',payload)
+  }
+}
 //인증을 위한
 export const auth = {
   login(email, password) {

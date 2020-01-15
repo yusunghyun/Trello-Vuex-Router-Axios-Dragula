@@ -52,3 +52,6 @@ v-bind:data 랑 :data랑 같나봅
 @submit  => submit이 발동하면 실행
 
 api -> action -> mu -> state ->
+
+v-modle   양방향데이터?
+methods:{this.$refs.이름대충.focus()} 이랑 태그에 ref="이름대충" 세트임.
