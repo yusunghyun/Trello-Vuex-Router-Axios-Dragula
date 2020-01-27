@@ -31,7 +31,6 @@ const Board = sequelize.define('board', {
     defaultValue: 'rgb(0, 121, 191)'
   }
 })
-Board.belongsTo(User)
 
 const List = sequelize.define('list', {
   title: {
@@ -42,7 +41,6 @@ const List = sequelize.define('list', {
     defaultValue: 65535
   }
 })
-Board.hasMany(List)
 
 const Card = sequelize.define('card', {
   title: {
@@ -56,6 +54,8 @@ const Card = sequelize.define('card', {
     defaultValue: 65535
   }
 })
+Board.belongsTo(User)
+Board.hasMany(List)
 List.hasMany(Card)
 
 module.exports = { 
