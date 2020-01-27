@@ -19,8 +19,9 @@ app.use(express.static('public'))
 
 app.post('/login', auth.login)
 
-app.post('/boards', authService.ensureAuth(), board.create)
 app.get('/boards', authService.ensureAuth(), board.query)
+
+app.post('/boards', authService.ensureAuth(), board.create)
 app.get('/boards/:id', authService.ensureAuth(), board.get)
 app.put('/boards/:id', authService.ensureAuth(), board.update)
 app.delete('/boards/:id', authService.ensureAuth(), board.destroy)
