@@ -11,6 +11,10 @@ var methodOverride = require("method-override");
 var rfs = require('rotating-file-stream');
 require('dotenv').config(); 
 var passport = require('passport');
+var passportConfig = require('./passport/index.js');
+const cors = require('cors')
+
+// var flash = require('connect-flash');
 
 var { sequelize } = require('./models');
 
@@ -23,14 +27,15 @@ app.locals.pretty = true;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser(process.env.SECRET));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/files',express.static(path.join(__dirname, 'uploads')));
-app.use(flash());
+// app.use(flash());
 app.use(session({
   secret: process.env.SECRET,//salt같은거
   resave: false,
@@ -70,10 +75,10 @@ var listRouter = require('./routes/list.js');
 var cardRouter = require('./routes/card.js');
 
 // app.use('/', indexRouter);
-app.use('/login', authRouter);
-app.use('/board', boardRouter);
-app.use('/list', listRouter);
-app.use('/card', cardRouter);
+app.use('/auth', authRouter); //로그인,회원가입,로그아웃
+app.use('/boards', boardRouter);
+app.use('/lists', listRouter);
+app.use('/cards', cardRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

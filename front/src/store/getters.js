@@ -1,6 +1,6 @@
 const getters = {//state국룰
   isAuth(state){
-    return !!state.token
+    return !!state.user
   }
 }
 

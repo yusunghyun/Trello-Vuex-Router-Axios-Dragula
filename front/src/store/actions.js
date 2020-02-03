@@ -3,7 +3,15 @@ import * as api from '../api'
 const actions = { //행동하는것 + api호출같은 비동기로직.
   LOGIN({commit},{email,password}){
     return api.auth.login(email,password)
-      .then(({accessToken})=>commit('LOGIN',accessToken))
+      // .then( (data) => commit('LOGIN',data) )
+  },
+  JOIN({commit},{email,password}){
+    return api.auth.join(email,password)
+      // .then((data)=>commit('JOIN',data))
+  },
+  LOGOUT({commit}){
+    return api.auth.logout()
+      // .then((data)=>commit('JOIN',data))
   },
   ADD_BOARD(_,{title}){
     return api.board.create(title).then(data=>data.item)//프라미스리턴하고 미리 만든거래..

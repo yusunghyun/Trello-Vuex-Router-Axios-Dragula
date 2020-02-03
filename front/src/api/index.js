@@ -54,9 +54,15 @@ export const list = {
 }
 //인증을 위한
 export const auth = {
+  join(email,password){
+    return request('post','/auth/join',{email,password})
+  },
   login(email, password) {
-    return request('post', '/login', {email, password}) 
-  }
+    return request('post', '/auth/login', {email, password}) 
+  },
+  logout(){
+    return request('get','/auth/logout')
+  },
 }
 export const card = {
   create(title, listId, pos){

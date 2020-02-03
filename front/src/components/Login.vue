@@ -5,17 +5,17 @@
       <div>
         <label for="email">Email</label>
         <input class="form-control" type="text" name="email" 
-          v-model="email" autofocus placeholder="e.g., test@test.com" />
+          v-model="email" autofocus />
       </div>
       <div>
         <label for="password">Passwrod</label>
-        <input class="form-control" type="password" 
+        <input class="form-control" type="password"
           v-model="password" placeholder="123123" />
       </div>
-      <button  class="btn" :class="{'btn-success': !invalidForm}" type="submit" 
-        :disabled="invalidForm">Log In</button>
+      <button  class="btn" type="submit" 
+        v-on:click="clickState='login'">로그인</button>
+      <button class="btn" v-on:click="clickState='join'" type="submit">회원가입</button>
     </form>
-    <p class="error" v-if="error">{{error}}</p>
   </div>
 </template>
 
@@ -27,31 +27,40 @@ export default {
     return {
       email: '',
       password: '',
-      error: '',
       rPath:'',
+      clickState:'',
     }
   },
-  computed: {
-    invalidForm() {
-      return !this.email || !this.password //둘 중 하나라도 틀리면 Log in버튼에 :disabled=false가되어 활성화안됨!!!!
-    }
-  },
+  
   created() {
     this.rPath = this.$route.query.rPath || '/'
   },
   methods: {
     ...mapActions([
-      'LOGIN'
+      'LOGIN',
+      'JOIN'
     ]),
     onSubmit() {
-      this.LOGIN({email:this.email,password:this.password})
-        .then(data => {
-          this.$router.push(this.rPath)
-        })
-        .catch(err=>{
-          this.error = err.data.error
-        })
-    }
+      if(this.clickState='login'){
+        this.LOGIN({email:this.email,password:this.password})
+          .then(data => {
+            this.$router.push(this.rPath)
+          })
+          // .catch(err=>{
+          //   this.error = err.data.error
+          // })
+      }
+      else if(this.clickState='join'){
+        this.JOIN({email:this.email,password:this.password}) //JOIN액션 만들것.
+          .then(data => {
+            this.$router.push(this.rPath)
+          })
+          // .catch(err=>{
+          //   this.error = err.data.error
+          // })
+      }
+    },
+    
   }
 }
 </script>
