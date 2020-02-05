@@ -36,7 +36,7 @@ export default {
   },
   watch: {
     input(v) {
-      this.valid = v.trim().length > 0
+      this.valid = !!v.trim().length
     }
   },
   mounted() {
@@ -55,12 +55,14 @@ export default {
     // },
     addBoard() {
       // this.$emit('close')
-      this.SET_IS_ADD_BOARD(false)//변이함수:이게 닫는거 false대신 트루넣으면 뜨는거
-      this.ADD_BOARD({title:this.input}).then(({id})=>{
+      console.log()
+      this.ADD_BOARD(this.input).then((id)=>{
         this.$router.push(`/b/${id}`)
         // this.FETCH_BOARDS()
         })//ADD_BOARD호출
-      // this.$emit('submit')
+        .catch(err=>console.log(err))
+        .finally(()=>this.SET_IS_ADD_BOARD(false))//변이함수:이게 닫는거 false대신 트루넣으면 뜨는거)
+      this.$emit('submit')
     }
   }
 }

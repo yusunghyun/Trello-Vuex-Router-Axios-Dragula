@@ -3,12 +3,12 @@ const router = express.Router();
 const {Board,Card,List,User} = require('../models')
 const { isLogin } = require('../passport/auth.js');
 
-router.get('/',isLogin,async(req,res)=>{
+router.get('/',async(req,res)=>{
   const userId = req.user.id
-  const list = await models.Board.findAll({ where: {userId} })
+  const list = await Board.findAll({ where: {userId} })
   res.json({ list })
 })
-router.post('/',isLogin,async(req,res)=>{
+router.post('/',async(req,res)=>{
   const userId = req.user.id
   let { title } = req.body
   
@@ -24,7 +24,7 @@ router.post('/',isLogin,async(req,res)=>{
   
   res.status(201).json({ item: board })
 })
-router.get('/:id',isLogin,async(req,res,next)=>{
+router.get('/:id',async(req,res,next)=>{
   const { id } = req.params
   const item = await Board.findOne({ 
     where: { id },
@@ -44,7 +44,7 @@ router.get('/:id',isLogin,async(req,res,next)=>{
 
   res.json({ item })
 })
-router.put('/:id',isLogin,async(req,res,next)=>{
+router.put('/:id',async(req,res,next)=>{
   const { id } = req.params
   let body = req.body
 
@@ -64,7 +64,7 @@ router.put('/:id',isLogin,async(req,res,next)=>{
 
   res.json({ item: board })
 })
-router.delete('/:id',isLogin,async(req,res,next)=>{
+router.delete('/:id',async(req,res,next)=>{
   const { id } = req.params
   await Board.destroy({ where: { id } })
   res.status(204).end()  

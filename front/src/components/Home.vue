@@ -45,8 +45,8 @@ export default {
     this.SET_THEME()
   },
   updated() {
-    this.$refs.boardItem.forEach(el => {
-      el.style.backgroundColor = el.dataset.bgcolor
+    Array.from(document.querySelectorAll('.board-item')).forEach(el => {
+      el.style.backgroundColor = el.dataset.bgcolor || '#ddd'
     })
   },
   methods: {
