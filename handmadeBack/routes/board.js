@@ -5,10 +5,10 @@ const { isLogin } = require('../passport/auth.js');
 
 router.get('/',async(req,res)=>{
   const userId = req.user.id
-  const list = await Board.findAll({ where: {userId} })
+  const list = await Board.findAll({where:userId})
   res.json({ list })
 })
-router.post('/',async(req,res)=>{
+router.post('/',isLogin,async(req,res)=>{
   const userId = req.user.id
   let { title } = req.body
   
@@ -19,12 +19,12 @@ router.post('/',async(req,res)=>{
   await List.bulkCreate([
     { title: 'Todo', pos: 65535,  boardId: board.id},
     { title: 'Doing', pos: 65535 * 2, boardId: board.id},
-    { title: 'Done', pos: 65535 * 4, boardId: board.id},
+    { title: 'Done', pos: 65535 * 4, boardId:board.id},
   ])
   
   res.status(201).json({ item: board })
 })
-router.get('/:id',async(req,res,next)=>{
+router.get('/:id',isLogin,async(req,res,next)=>{
   const { id } = req.params
   const item = await Board.findOne({ 
     where: { id },
@@ -44,7 +44,7 @@ router.get('/:id',async(req,res,next)=>{
 
   res.json({ item })
 })
-router.put('/:id',async(req,res,next)=>{
+router.put('/:id',isLogin,async(req,res,next)=>{
   const { id } = req.params
   let body = req.body
 
@@ -64,7 +64,7 @@ router.put('/:id',async(req,res,next)=>{
 
   res.json({ item: board })
 })
-router.delete('/:id',async(req,res,next)=>{
+router.delete('/:id',isLogin,async(req,res,next)=>{
   const { id } = req.params
   await Board.destroy({ where: { id } })
   res.status(204).end()  

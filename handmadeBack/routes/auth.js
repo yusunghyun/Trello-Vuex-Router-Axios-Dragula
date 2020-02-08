@@ -19,7 +19,11 @@ router.post("/join", isLogout , async (req, res, next) => {
         email,
         password: hash,
       });
-      res.json({user:resultUser});
+      passport.authenticate('local', (error, user, info) => {
+				req.login(user, (err) => {
+					res.json({user});
+				});
+			})(req, res, next)
     }
   } catch (err) {
     console.error(err);

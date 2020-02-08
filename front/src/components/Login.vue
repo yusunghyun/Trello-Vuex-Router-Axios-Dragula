@@ -21,7 +21,7 @@
 
 <script>
 import {auth, setAuthInHeader} from '../api'
-import {mapActions} from 'vuex'
+import {mapActions,mapState} from 'vuex'
 export default {
   data() {
     return {
@@ -31,7 +31,20 @@ export default {
       clickState:'',
     }
   },
-  
+  computed: {
+    ...mapState({
+      me:'me'
+    })
+  },
+  watch: {
+    me(value) {
+      if (value) {
+        this.$router.push({
+          path: '/',
+        });
+      }
+    }
+    },
   created() {
     this.rPath = this.$route.query.rPath || '/'
   },
@@ -46,18 +59,18 @@ export default {
           .then(data => {
             this.$router.push(this.rPath)
           })
-          // .catch(err=>{
-          //   this.error = err.data.error
-          // })
+          .catch(err=>{
+            this.error = err.data.error
+          })
       }
       else if(this.clickState='join'){
         this.JOIN({email:this.email,password:this.password}) //JOIN액션 만들것.
           .then(data => {
             this.$router.push(this.rPath)
           })
-          // .catch(err=>{
-          //   this.error = err.data.error
-          // })
+          .catch(err=>{
+            this.error = err.data.error
+          })
       }
     },
     

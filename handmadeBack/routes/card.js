@@ -16,7 +16,7 @@ router.post('/',isLogin,async (req, res) => {
   res.status(201).json({ item: card })
 })
 
-router.get('/:id',isLogin,async (req, res) => {
+router.get('/:id',async (req, res) => {
   const {id} = req.params
   if (!id) return res.status(400).json({error: 'no id'})
 

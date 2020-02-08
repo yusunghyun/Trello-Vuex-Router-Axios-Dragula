@@ -4,14 +4,8 @@ const mutations = { //변화하는것//state국룰
   SET_IS_ADD_BOARD (state, toggle){ //토글은 내가 넣을 거.
     state.isAddBoard = toggle
   },
-  LOGIN(state){
-    state.token = true
-  },
-  JOIN(state){
-    state.token = true
-  },
-  LOGOUT(state){
-    state.token = false
+  SET_ME(state, payload) {
+    state.me = payload;
   },
   SET_BOARDS(state,boards){
     state.boards = boards
