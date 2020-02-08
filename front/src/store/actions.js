@@ -3,18 +3,21 @@ import * as api from '../api'
 const actions = { //행동하는것 + api호출같은 비동기로직.
   LOGIN({commit},{email,password}){
     return api.auth.login(email,password)
-      .then( (res) => commit('SET_ME',res) )
+      .then( ({ accessToken }) => commit('LOGIN',{accessToken} ) )
+      .catch(err=>console.error(err))
   },
   JOIN({commit},{email,password}){
     return api.auth.join(email,password)
-      .then((res)=>commit('SET_ME',res))
+      .then(({accessToken })=>commit('LOGIN',{accessToken} ))
   },
   LOGOUT({commit}){
     return api.auth.logout()
-      .then(()=>commit('SET_ME',null))
+      .then(()=>commit('LOGOUT',null))
   },
-  ADD_BOARD(_,{title}){
-    return api.board.create(title).then(data=>data.item)//프라미스리턴하고 미리 만든거래..
+  ADD_BOARD (_, {title}) {
+    return api.board.create(title).then(data => {
+      console.log('호잇')
+      return data.item})
   },
   FETCH_BOARDS( {commit} ){//보드목록패치
     return api.board.fetch().then(data=>{
@@ -22,8 +25,10 @@ const actions = { //행동하는것 + api호출같은 비동기로직.
     })
   },
   FETCH_BOARD({commit},{id}){//한개만 패치.
-    return api.board.fetch(id).then(data=>{
-      commit('SET_BOARD',data.item)
+    
+    return api.board.fetch(id).then(({Board})=>{
+      console.log(data,data.item)
+      return commit('SET_BOARD',Board)
     })
   },//아래 함수 첫번째 인자는 컨텍스트
   DELETE_BOARD(_,{id}){

@@ -13,6 +13,7 @@
           <div class="list-section">
             <div class="list-wrapper" v-for="list in board.lists" :key="list.pos"
               :data-list-id="list.id">
+                <span>{{list}}</span>
                 <List :data="list" />
             </div>
             <div class="list-wrapper">
@@ -79,7 +80,8 @@ export default {
     fetchData() {
       this.loading = true
       return this.FETCH_BOARD({id: this.$route.params.bid})
-        .then(() => this.loading = false)
+        .then(() => {this.loading = false
+})
     },
     onShowSettings(){
       this.SET_IS_SHOW_BOARD_SETTINGS(true)

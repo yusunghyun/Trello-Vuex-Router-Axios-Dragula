@@ -4,8 +4,17 @@ const mutations = { //변화하는것//state국룰
   SET_IS_ADD_BOARD (state, toggle){ //토글은 내가 넣을 거.
     state.isAddBoard = toggle
   },
-  SET_ME(state, payload) {
-    state.me = payload;
+  LOGIN (state, {accessToken}) {
+    if (!accessToken) return
+    state.accessToken = accessToken
+    localStorage.accessToken = accessToken
+    setAuthInHeader(accessToken)
+    console.log('mutation')
+  },
+  LOGOUT (state) {
+    state.accessToken = null 
+    delete localStorage.accessToken
+    setAuthInHeader(null)
   },
   SET_BOARDS(state,boards){
     state.boards = boards

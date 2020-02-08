@@ -39,7 +39,8 @@ export default {
     ...mapState({//맵스테이트는 이스에드보드를 쓸꺼에요 (배열로 해도됨 객체말구)
       isAddBoard:'isAddBoard',
       boards: 'boards'
-  })},
+    })
+    },
   created() {
     this.fetchData()
     this.SET_THEME()
@@ -61,6 +62,7 @@ export default {
       this.loading = true
       this.FETCH_BOARDS().finally(_=> {
         this.loading = false
+
       })
     },
     // addBoard() {

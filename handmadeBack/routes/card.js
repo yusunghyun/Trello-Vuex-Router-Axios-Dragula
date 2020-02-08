@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const {Board,Card,List,User} = require('../models')
-const { isLogin } = require('../passport/auth.js');
+const authService = require('../jwt/auth.js')
 
-router.post('/',isLogin,async (req, res) => {
-  const userId = req.user.id
+router.post('/',authService.ensureAuth(),async (req, res) => {
+  const userId = 1
   let { title, listId, pos } = req.body
 
   if (!title) res.status(400).end('no title')
@@ -16,7 +16,7 @@ router.post('/',isLogin,async (req, res) => {
   res.status(201).json({ item: card })
 })
 
-router.get('/:id',async (req, res) => {
+router.get('/:id',authService.ensureAuth(),async (req, res) => {
   const {id} = req.params
   if (!id) return res.status(400).json({error: 'no id'})
 
@@ -27,7 +27,7 @@ router.get('/:id',async (req, res) => {
   res.json({ item: card })
 })
 
-router.put('/:id',isLogin,async (req, res) => {
+router.put('/:id',authService.ensureAuth(),async (req, res) => {
   const {id} = req.params
   let body = req.body
 
@@ -50,7 +50,7 @@ router.put('/:id',isLogin,async (req, res) => {
 
   res.json({ item: card })
 })
-router.delete('/:id',isLogin,async (req, res) => {
+router.delete('/:id',authService.ensureAuth(),async (req, res) => {
   const { id } = req.params
   await Card.destroy({ where: { id } })
   res.status(204).end()

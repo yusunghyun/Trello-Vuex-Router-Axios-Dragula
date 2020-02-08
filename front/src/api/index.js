@@ -20,12 +20,12 @@ const request = (method, url, data) => {
     })
 }
 
-// export const setAuthInHeader = token => {
-//   axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : null;
-// }
+export const setAuthInHeader = token => {
+  axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : null;
+}
 
-// const {token} = localStorage
-// if (token) setAuthInHeader(token)
+const {token} = localStorage
+if (token) setAuthInHeader(token)
 
 export const board = {
   fetch(id) {
@@ -60,9 +60,9 @@ export const auth = {
   login(email, password) {
     return request('post', '/auth/login', {email, password}) 
   },
-  logout(){
-    return request('get','/auth/logout')
-  },
+  // logout(){
+  //   return request('get','/auth/logout')
+  // },
 }
 export const card = {
   create(title, listId, pos){

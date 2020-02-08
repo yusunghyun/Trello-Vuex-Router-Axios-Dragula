@@ -31,20 +31,7 @@ export default {
       clickState:'',
     }
   },
-  computed: {
-    ...mapState({
-      me:'me'
-    })
-  },
-  watch: {
-    me(value) {
-      if (value) {
-        this.$router.push({
-          path: '/',
-        });
-      }
-    }
-    },
+  
   created() {
     this.rPath = this.$route.query.rPath || '/'
   },
@@ -55,9 +42,9 @@ export default {
     ]),
     onSubmit() {
       if(this.clickState='login'){
-        this.LOGIN({email:this.email,password:this.password})
+        this.LOGIN({email:this.email,password:this.password}) //JOIN액션 만들것.
           .then(data => {
-            this.$router.push(this.rPath)
+            this.$router.push('/')
           })
           .catch(err=>{
             this.error = err.data.error

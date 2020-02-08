@@ -1,50 +1,54 @@
 const express = require('express');
 const router = express.Router();
 const {Board,Card,List,User} = require('../models')
-const { isLogin } = require('../passport/auth.js');
+const authService = require('../jwt/auth.js')
 
-router.get('/',async(req,res)=>{
-  const userId = req.user.id
-  const list = await Board.findAll({where:userId})
+
+router.get('/',authService.ensureAuth(),async(req,res)=>{
+  // const userId = 1
+  const list = await Board.findAll( )
   res.json({ list })
 })
-router.post('/',isLogin,async(req,res)=>{
-  const userId = req.user.id
+router.post('/',authService.ensureAuth(),async(req,res)=>{
+  const UserId = 1
   let { title } = req.body
   
   if (!title) res.status(400).end('no title')
 
-  const board = Board.build({ title, userId })
+  const board = Board.build({ title, UserId })
   await board.save()
   await List.bulkCreate([
-    { title: 'Todo', pos: 65535,  boardId: board.id},
-    { title: 'Doing', pos: 65535 * 2, boardId: board.id},
-    { title: 'Done', pos: 65535 * 4, boardId:board.id},
+    { title: 'Todo', pos: 65535,  BoardId: board.dataValues.id},
+    { title: 'Doing', pos: 65535 * 2, BoardId: board.dataValues.id},
+    { title: 'Done', pos: 65535 * 4, BoardId:board.dataValues.id},
   ])
-  
+  console.log('-----------')
+  console.log(board)
+  console.log('------------')
   res.status(201).json({ item: board })
 })
-router.get('/:id',isLogin,async(req,res,next)=>{
+router.get('/:id',authService.ensureAuth(),async(req,res,next)=>{
+
   const { id } = req.params
   const item = await Board.findOne({ 
-    where: { id },
+    where: {id },
     include: [{
       model: List,
       include: [{
         model: Card,
       }]
-    }],
+    }]
   })
+
   if (!item) return res.status(404).end()
 
   item.lists.sort((a, b) => a.pos - b.pos)
   item.lists.forEach(list => {
     list.cards.sort((a, b) => a.pos - b.pos)
   })
-
   res.json({ item })
 })
-router.put('/:id',isLogin,async(req,res,next)=>{
+router.put('/:id',authService.ensureAuth(),async(req,res,next)=>{
   const { id } = req.params
   let body = req.body
 
@@ -64,7 +68,7 @@ router.put('/:id',isLogin,async(req,res,next)=>{
 
   res.json({ item: board })
 })
-router.delete('/:id',isLogin,async(req,res,next)=>{
+router.delete('/:id',authService.ensureAuth(),async(req,res,next)=>{
   const { id } = req.params
   await Board.destroy({ where: { id } })
   res.status(204).end()  
