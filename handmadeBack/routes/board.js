@@ -22,16 +22,15 @@ router.post('/',authService.ensureAuth(),async(req,res)=>{
     { title: 'Doing', pos: 65535 * 2, BoardId: board.dataValues.id},
     { title: 'Done', pos: 65535 * 4, BoardId:board.dataValues.id},
   ])
-  console.log('-----------')
-  console.log(board)
-  console.log('------------')
+  
   res.status(201).json({ item: board })
 })
 router.get('/:id',authService.ensureAuth(),async(req,res,next)=>{
-
+  
   const { id } = req.params
+
   const item = await Board.findOne({ 
-    where: {id },
+    where: {id},
     include: [{
       model: List,
       include: [{
@@ -41,11 +40,12 @@ router.get('/:id',authService.ensureAuth(),async(req,res,next)=>{
   })
 
   if (!item) return res.status(404).end()
-
-  item.lists.sort((a, b) => a.pos - b.pos)
-  item.lists.forEach(list => {
-    list.cards.sort((a, b) => a.pos - b.pos)
+  
+  item.Lists.sort((a, b) => a.pos - b.pos)
+  item.Lists.forEach(list => {
+    list.Cards.sort((a, b) => a.pos - b.pos)
   })
+  
   res.json({ item })
 })
 router.put('/:id',authService.ensureAuth(),async(req,res,next)=>{

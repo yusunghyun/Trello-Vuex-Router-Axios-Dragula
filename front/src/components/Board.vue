@@ -11,7 +11,7 @@
         </div>
         <div class="list-section-wrapper">
           <div class="list-section">
-            <div class="list-wrapper" v-for="list in board.lists" :key="list.pos"
+            <div class="list-wrapper" v-for="list in board.Lists" :key="list.pos"
               :data-list-id="list.id">
                 <span>{{list}}</span>
                 <List :data="list" />
@@ -52,12 +52,15 @@ export default {
     ...mapState({
       board: 'board',
       isShowBoardSettings:'isShowBoardSettings'
-    })
+    }),
+    zz(){
+    }
   },
   created() {
     this.fetchData().then(()=>{
       this.inputTitle = this.board.title
       this.SET_THEME(this.board.bgColor)//?
+
     })
     this.SET_IS_SHOW_BOARD_SETTINGS(false)
   },
@@ -80,8 +83,9 @@ export default {
     fetchData() {
       this.loading = true
       return this.FETCH_BOARD({id: this.$route.params.bid})
-        .then(() => {this.loading = false
-})
+        .then(() => {
+          this.loading = false
+        })
     },
     onShowSettings(){
       this.SET_IS_SHOW_BOARD_SETTINGS(true)

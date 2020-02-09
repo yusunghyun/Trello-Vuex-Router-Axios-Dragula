@@ -26,8 +26,7 @@ const actions = { //행동하는것 + api호출같은 비동기로직.
   },
   FETCH_BOARD({commit},{id}){//한개만 패치.
     
-    return api.board.fetch(id).then(({Board})=>{
-      console.log(data,data.item)
+    return api.board.fetch(id).then((Board)=>{
       return commit('SET_BOARD',Board)
     })
   },//아래 함수 첫번째 인자는 컨텍스트
