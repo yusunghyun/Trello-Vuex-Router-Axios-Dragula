@@ -9,7 +9,6 @@ const mutations = { //변화하는것//state국룰
     state.accessToken = accessToken
     localStorage.accessToken = accessToken
     setAuthInHeader(accessToken)
-    console.log('mutation')
   },
   LOGOUT (state) {
     state.accessToken = null 
@@ -21,8 +20,6 @@ const mutations = { //변화하는것//state국룰
   },
   SET_BOARD(state,Board){
     state.board = Board.item
-    console.log('mutation')
-    console.log(state.board.item)
   },
   SET_CARD(state,card){
     state.card=card

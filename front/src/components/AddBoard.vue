@@ -55,9 +55,7 @@ export default {
     // },
     addBoard() {
       // this.$emit('close')
-      console.log('AddBoard.vue-addBoard()첫실행')
       this.ADD_BOARD({title: this.input}).then(({id})=>{
-        console.log('AddBoard.vue-addBoard().then영역')
         this.$router.push(`/b/${id}`)
         // this.FETCH_BOARDS()
         })//ADD_BOARD호출

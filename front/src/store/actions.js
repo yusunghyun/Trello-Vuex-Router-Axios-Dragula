@@ -16,8 +16,6 @@ const actions = { //행동하는것 + api호출같은 비동기로직.
   },
   ADD_BOARD (_, {title}) {
     return api.board.create(title).then(data => {
-      console.log('호잇')
-      console.log(data)
       return data.item})
   },
   FETCH_BOARDS( {commit} ){//보드목록패치

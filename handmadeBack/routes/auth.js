@@ -40,10 +40,9 @@ router.post("/login",async(req, res, next) => {
   res.json({ accessToken, user })
 });
 
-// router.get('/logout',(req,res,next)=>{
-// 	req.logout();//로그아웃해줘
-// 	req.session.destroy();//혹시 세션남아있으면 지워줘
-// 	res.end();//다시 원래 페이지로!
-// })
+router.get('/logout',(req,res,next)=>{
+	req.session.destroy();//혹시 세션남아있으면 지워줘
+	res.end();//다시 원래 페이지로!
+})
 
 module.exports = router;

@@ -6,9 +6,6 @@ const authService = require('../jwt/auth.js')
 router.post('/',authService.ensureAuth(),async (req, res) => {
   const userId = 1
   let { title, ListId, pos } = req.body
-  console.log('ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ')
-  console.log(ListId)
-  console.log('ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ')
   if (!title) res.status(400).end('no title')
   if (!ListId) res.status(400).end('no ListId')
 

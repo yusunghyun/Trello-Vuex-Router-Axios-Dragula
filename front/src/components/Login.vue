@@ -13,8 +13,8 @@
           v-model="password" placeholder="123123" />
       </div>
       <button  class="btn" type="submit" 
-        v-on:click="clickState='login'">로그인</button>
-      <button class="btn" v-on:click="clickState='join'" type="submit">회원가입</button>
+        v-on:click="onLogin">로그인</button>
+      <button class="btn" v-on:click="onJoin" type="submit">회원가입</button>
     </form>
   </div>
 </template>
@@ -40,8 +40,15 @@ export default {
       'LOGIN',
       'JOIN'
     ]),
+    onLogin(){
+      this.clickState = 'login'
+    },
+    onJoin(){
+      this.clickState = 'join'
+    },
     onSubmit() {
-      if(this.clickState='login'){
+      if(this.clickState==='login'){
+      
         this.LOGIN({email:this.email,password:this.password}) //JOIN액션 만들것.
           .then(data => {
             this.$router.push('/')

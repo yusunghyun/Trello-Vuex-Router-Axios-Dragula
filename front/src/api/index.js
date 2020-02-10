@@ -60,9 +60,9 @@ export const auth = {
   login(email, password) {
     return request('post', '/auth/login', {email, password}) 
   },
-  // logout(){
-  //   return request('get','/auth/logout')
-  // },
+  logout(){
+    return request('get','/auth/logout')
+  },
 }
 export const card = {
   create(title, ListId, pos){
