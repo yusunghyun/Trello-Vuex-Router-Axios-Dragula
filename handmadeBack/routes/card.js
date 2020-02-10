@@ -5,12 +5,14 @@ const authService = require('../jwt/auth.js')
 
 router.post('/',authService.ensureAuth(),async (req, res) => {
   const userId = 1
-  let { title, listId, pos } = req.body
-
+  let { title, ListId, pos } = req.body
+  console.log('ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ')
+  console.log(ListId)
+  console.log('ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ')
   if (!title) res.status(400).end('no title')
-  if (!listId) res.status(400).end('no listId')
+  if (!ListId) res.status(400).end('no ListId')
 
-  const card = Card.build({ title, pos, listId, userId })
+  const card = Card.build({ title, pos, ListId, userId })
   await card.save()
 
   res.status(201).json({ item: card })

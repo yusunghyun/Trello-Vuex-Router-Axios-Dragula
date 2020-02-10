@@ -7,7 +7,7 @@
       <a href="" class="delete-list-btn" @click.prevent="onDeleteList">&times;</a>
     </div>
     <div class="card-list">
-      <card-item v-for="card in data.cards" :key="card.id" :data="card"/>
+      <card-item v-for="card in data.Cards" :key="card.id" :data="card"/>
     </div>
     <div v-if="isAddCard">
       <AddCard :list-id="data.id" @close="isAddCard=false"/>

@@ -32,14 +32,16 @@ export default {
     onSubmitTitle(){
       this.inputTitle = this.inputTitle.trim()
       if(!this.inputTitle) return this.restore()
-
       const title= this.inputTitle
-      const boardId = this.board.id
-      const lastList = this.board.lists[this.board.lists.length -1 ]
+      const BoardId = this.board.id
+      const lastList = this.board.Lists[this.board.Lists.length -1 ]
       const pos = lastList ? lastList.pos * 2 : 65535
 
-      this.ADD_LIST({title,boardId,pos})
-        .then(()=>this.restore())
+      this.ADD_LIST({title,BoardId,pos})
+        .then(()=>{
+          console.log('addlist.then 42번줄')
+          this.restore()
+          })
     },
     restore(){
       this.isAddList = false

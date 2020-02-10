@@ -13,7 +13,7 @@
           <div class="list-section">
             <div class="list-wrapper" v-for="list in board.Lists" :key="list.pos"
               :data-list-id="list.id">
-                <span>{{list}}</span>
+                <!-- <span>{{list}}</span> -->
                 <List :data="list" />
             </div>
             <div class="list-wrapper">
@@ -41,7 +41,6 @@ export default {
   data() {
     return {
       bid: 0,
-      loading: false,
       cDragger:null,
       lDragger:null,
       isEditTitle:false,
@@ -53,16 +52,16 @@ export default {
       board: 'board',
       isShowBoardSettings:'isShowBoardSettings'
     }),
-    zz(){
-    }
   },
   created() {
     this.fetchData().then(()=>{
+      
       this.inputTitle = this.board.title
       this.SET_THEME(this.board.bgColor)//?
 
     })
     this.SET_IS_SHOW_BOARD_SETTINGS(false)
+    
   },
   updated(){//자식컴포가 마운트된 시점
     this.setCardDragabble()
@@ -81,11 +80,8 @@ export default {
       'UPDATE_LIST',
     ]),
     fetchData() {
-      this.loading = true
       return this.FETCH_BOARD({id: this.$route.params.bid})
-        .then(() => {
-          this.loading = false
-        })
+      
     },
     onShowSettings(){
       this.SET_IS_SHOW_BOARD_SETTINGS(true)
@@ -100,8 +96,8 @@ export default {
       this.inputTitle = this.inputTitle.trim()
       if(!this.inputTitle) return
 
-      const id = this.board.id
-      const title = this.inputTitle
+      const id = this.board.id //13그대로
+      const title = this.inputTitle //4로수정
       if(title === this.board.title) return
 
       this.UPDATE_BOARD({id,title})

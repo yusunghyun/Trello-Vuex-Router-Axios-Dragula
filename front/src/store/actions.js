@@ -17,6 +17,7 @@ const actions = { //행동하는것 + api호출같은 비동기로직.
   ADD_BOARD (_, {title}) {
     return api.board.create(title).then(data => {
       console.log('호잇')
+      console.log(data)
       return data.item})
   },
   FETCH_BOARDS( {commit} ){//보드목록패치
@@ -37,8 +38,8 @@ const actions = { //행동하는것 + api호출같은 비동기로직.
     return api.board.update(id,{title,bgColor})
       .then(()=>dispatch('FETCH_BOARD',{id:state.board.id}))
   },
-  ADD_LIST({dispatch,state},{title,boardId,pos}){ //ctx안에 dispatch와 state있음
-    return api.list.create({title,boardId,pos})
+  ADD_LIST({dispatch,state},{title,BoardId,pos}){ //ctx안에 dispatch와 state있음
+    return api.list.create({title,BoardId,pos})
       .then(()=>dispatch('FETCH_BOARD',{id:state.board.id}))
   },
   UPDATE_LIST({dispatch,state},{id,pos,title}){
@@ -49,8 +50,8 @@ const actions = { //행동하는것 + api호출같은 비동기로직.
     return api.list.destroy(id)
       .then(()=>dispatch('FETCH_BOARD',{id:state.board.id}))
   },
-  ADD_CARD({dispatch,state},{title, listId, pos}){
-    return api.card.create(title,listId,pos)
+  ADD_CARD({dispatch,state},{title, ListId, pos}){
+    return api.card.create(title,ListId,pos)
       .then(()=>dispatch('FETCH_BOARD',{id:state.board.id}))
   },
   FETCH_CARD({commit},{id}){

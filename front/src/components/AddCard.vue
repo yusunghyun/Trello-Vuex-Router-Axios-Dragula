@@ -35,15 +35,15 @@ export default {
       if(this.invalidInput) return
       const {inputTitle,listId} = this
       const pos = this.newCardPos()
-      this.ADD_CARD({ title:inputTitle,listId ,pos})
+      this.ADD_CARD({ title:inputTitle,ListId:listId ,pos})
         .finally(()=>this.inputTitle='')
     },
     newCardPos(){
-      const curList = this.$store.state.board.lists.filter(l=>l.id===this.listId)[0]
+      const curList = this.$store.state.board.Lists.filter(l=>l.id===this.listId)[0]
       if(!curList) return 65535
-      const {cards} = curList
-      if(!cards.length) return 65535
-      return cards[cards.length - 1].pos * 2
+      const {Cards} = curList
+      if(!Cards.length) return 65535
+      return Cards[Cards.length - 1].pos * 2
     },
     setupClickOutside(el) {
       document.querySelector('body').addEventListener('click', e => {

@@ -19,8 +19,10 @@ const mutations = { //변화하는것//state국룰
   SET_BOARDS(state,boards){
     state.boards = boards
   },
-  SET_BOARD(state,board){
-    state.board = board
+  SET_BOARD(state,Board){
+    state.board = Board.item
+    console.log('mutation')
+    console.log(state.board.item)
   },
   SET_CARD(state,card){
     state.card=card
