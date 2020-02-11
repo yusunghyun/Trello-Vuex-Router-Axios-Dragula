@@ -3,7 +3,9 @@ import * as api from '../api'
 const actions = { //행동하는것 + api호출같은 비동기로직.
   LOGIN({commit},{email,password}){
     return api.auth.login(email,password)
-      .then( ({ accessToken }) => commit('LOGIN',{accessToken} ) )
+      .then( ({ accessToken }) => {
+        commit('LOGIN',{accessToken})
+      })
       .catch(err=>console.error(err))
   },
   JOIN({commit},{email,password}){
