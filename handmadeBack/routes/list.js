@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {Board,Card,List,User} = require('../models')
+const {Board,Card,List,User,Op} = require('../models')
 const authService = require('../jwt/auth.js')
 
 router.post('/',authService.ensureAuth(),async (req, res) => {
@@ -44,13 +44,13 @@ router.delete('/:id',authService.ensureAuth(),async (req, res) => {
   if (!id) return res.status(400).json({ error: 'no id' })
 
   const cardIds = await Card.findAll({
-    where: { listId: id }
+    where: { ListId: id }
   }).map(card => card.id)
 
   if (cardIds.length) {
     await Card.destroy({
       where: {
-        id: { [Op.in]: cardIds }
+        id: cardIds
       }
     })
   }
