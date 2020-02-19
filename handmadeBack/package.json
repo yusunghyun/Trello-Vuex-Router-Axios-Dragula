@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "serve": "node app",
+    "serve": "node ./bin/www",
     "dev": "nodemon",
     "start": "pm2 start ./bin/www"
   },
