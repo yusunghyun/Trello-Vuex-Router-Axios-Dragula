@@ -10,8 +10,8 @@ var sessionStore = require('session-file-store')(session); //이놈 자체가 �
 var methodOverride = require("method-override");
 var rfs = require('rotating-file-stream');
 require('dotenv').config(); 
-var passport = require('passport');
-var passportConfig = require('./passport/index.js');
+// var passport = require('passport');
+// var passportConfig = require('./passport/index.js');
 const cors = require('cors')
 
 // var flash = require('connect-flash');
@@ -24,8 +24,8 @@ sequelize.sync(); //{force:true}
 
 // view engine setup
 app.locals.pretty = true;
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'pug');
 
 app.use(cors())
 app.use(logger('dev'));
@@ -34,18 +34,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.SECRET));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/files',express.static(path.join(__dirname, 'uploads')));
+// app.use('/files',express.static(path.join(__dirname, 'uploads')));
 // app.use(flash());
-app.use(session({
-  secret: process.env.SECRET,//salt같은거
-  resave: false,
-  saveUninitialized: true,
-  // cookie: { secure: true }  //이거대신
-  store: new sessionStore()   //이거!
-}));
-passportConfig(passport);
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(session({
+//   secret: process.env.SECRET,//salt같은거
+//   resave: false,
+//   saveUninitialized: true,
+//   // cookie: { secure: true }  //이거대신
+//   store: new sessionStore()   //이거!
+// }));
+// passportConfig(passport);
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 /* Morgan 셋팅 */
 const logDirectory = path.join(__dirname, 'log');

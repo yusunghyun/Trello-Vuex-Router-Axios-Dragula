@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 const { User } = require("../models");
-const { alertLoc } = require("../modules/util.js");
+// const { alertLoc } = require("../modules/util.js");
 const authService = require('../jwt/auth.js')
 
 router.post("/join", async (req, res, next) => {
