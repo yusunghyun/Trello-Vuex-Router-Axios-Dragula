@@ -26,6 +26,8 @@ sequelize.sync(); //{force:true}
 app.locals.pretty = true;
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'pug');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 app.use(cors())
 app.use(logger('dev'));
