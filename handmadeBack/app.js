@@ -20,7 +20,7 @@ var { sequelize } = require('./models');
 
 
 var app = express();
-sequelize.sync(); //{force:true}
+sequelize.sync({force:true}); //{force:true}
 
 // view engine setup
 app.locals.pretty = true;
