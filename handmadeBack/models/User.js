@@ -7,4 +7,7 @@ module.exports = (sequelize, Sequelize) => {
     password: {
       type: Sequelize.STRING,
     }
+  },{
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_general_ci',
   })}
