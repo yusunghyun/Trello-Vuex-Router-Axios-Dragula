@@ -28,7 +28,7 @@ app.locals.pretty = true;
 // app.set('view engine', 'pug');
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
-
+//d
 app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
